@@ -11,16 +11,17 @@ import java.io.IOException;
 @ComponentScan({"com.bitter.PingSweep.*"})
 public class PingSweepApplication {
 
-	public static PingSweep pingSweep;
+	private static PingSweep pingSweep;
 
 	public PingSweepApplication(PingSweep pingSweep) {
-		this.pingSweep = pingSweep;
+		PingSweepApplication.pingSweep = pingSweep;
 	}
 
-	public static void main(String[] args) throws IOException, InterruptedException {
+	public static void main(String[] args) {
 		SpringApplication.run(PingSweepApplication.class, args);
-		System.out.println("Hi");
-		pingSweep.startPingSweep(10);
+
+		System.out.println("START");
+		pingSweep.startPingSweep(1);
 	}
 
 }

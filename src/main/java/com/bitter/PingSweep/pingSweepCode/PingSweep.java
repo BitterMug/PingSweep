@@ -15,36 +15,38 @@ public class PingSweep {
         @Override
         public void run () {
             try {
-                //Called two times. Second time are address tables filed.
-                pingMultiThread(true);
+                                            //Called two times. Second time are address tables filed.
+                pingMultiThread(true); //One ping scan is without any output. Going around loosing first ping.
                 TimeUnit.SECONDS.sleep(10);
                 pingMultiThread(false);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
+            } catch (InterruptedException | IOException e) {
                 e.printStackTrace();
             }
         }
     };
 
     private static PingRepository pingRepository;
-    private static List<PingReturn> pingReturnsList;
 
     @Autowired
     public PingSweep(PingRepository pingRepository) {
-        this.pingRepository = pingRepository;
+        PingSweep.pingRepository = pingRepository;
     }
 
-    public void startPingSweep(int delayMinutes) throws InterruptedException, IOException {
-        myTimer.scheduleAtFixedRate(myTask , 0l, delayMinutes * (60*1000)); // Runs every 5 minutes
+    public void startPingSweep(int delayMinutes) {
+        myTimer.scheduleAtFixedRate(myTask , 0L, delayMinutes * (60*1000)); // Runs every 5 minutes
     }
 
     private static void pingMultiThread(boolean test) throws InterruptedException, IOException {
-        String ipAddress = "192.168.0.";
-        for (int i = 1; i < 255; i++) {
-            Runnable r = new PingService(pingReturnsList, ipAddress + i, test);
+        String ipAddress = "192.168.0.";        //Network definition
+        List<PingReturn> pingReturnsList = new ArrayList<>();    //Clearing list
+        for (int i = 1; i < 255; i++) {         //Address pool
+            Runnable r = new PingService(pingReturnsList, ipAddress + i, test); //Defining new thread w/ assign ip
             new Thread(r).start();
         }
-
+        if (!test) {
+            TimeUnit.SECONDS.sleep(3);          //Waiting for ping to finish
+            System.out.println(pingReturnsList);        //Debug
+            pingRepository.saveAll(pingReturnsList);    //Saving to database
+        }
     }
 }

@@ -62,5 +62,8 @@ public class PingReturn {
         this.dateTime = dateTime;
     }
 
+    public String toString() {
+        return (this.getAddress() + " " + this.getDateTime() + "\n");
+    }
 
 }
