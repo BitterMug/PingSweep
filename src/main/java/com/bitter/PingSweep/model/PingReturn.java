@@ -1,5 +1,7 @@
 package com.bitter.PingSweep.model;
 
+import com.bitter.PingSweep.pingSweepCode.PingService;
+
 import javax.persistence.*;
 
 @Entity(name = "PingReturn")
@@ -30,15 +32,25 @@ public class PingReturn {
     private String address;
 
     @Column(
-            name = "datetime",
+            name = "date",
             nullable = false,
-            columnDefinition = "VARCHAR(64)"
+            columnDefinition = "VARCHAR(20)"
     )
-    private String dateTime;
+    private String date;
 
-    public PingReturn(String address, String dateTime) {
+    @Column(
+            name = "time",
+            nullable = false,
+            columnDefinition = "VARCHAR(20)"
+    )
+    private String time;
+
+    public PingReturn(String address, String date, String time) {
         this.address = address;
-        this.dateTime = dateTime;
+        this.date = date;
+        this.time = time;
+    }
+    public PingReturn(){
     }
 
     public Long getId(){
@@ -55,15 +67,22 @@ public class PingReturn {
         this.address = address;
     }
 
-    public String getDateTime() {
-        return dateTime;
+    public String getDate() {
+        return date;
     }
-    public void setDateTime(String dateTime) {
-        this.dateTime = dateTime;
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getTime() {
+        return time;
+    }
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public String toString() {
-        return (this.getAddress() + " " + this.getDateTime() + "\n");
+        return (this.getAddress() + " " + this.getDate() + " " + this.getTime()  + "\n");
     }
 
 }

@@ -10,8 +10,8 @@ import java.util.concurrent.TimeUnit;
 
 @Component
 public class PingSweep {
-    static Timer myTimer = new Timer ();
-    static TimerTask myTask = new TimerTask () {
+    static Timer pingTimer = new Timer ();
+    static TimerTask pingTask = new TimerTask () {
         @Override
         public void run () {
             try {
@@ -25,6 +25,19 @@ public class PingSweep {
         }
     };
 
+    static Timer updateTimer = new Timer();
+    static TimerTask updateTask = new TimerTask() {
+        @Override
+        public void run() {
+            ActivityService activityService = new ActivityService();
+            try {
+                activityService.updateNameList();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    };
+
     private static PingRepository pingRepository;
 
     @Autowired
@@ -32,15 +45,17 @@ public class PingSweep {
         PingSweep.pingRepository = pingRepository;
     }
 
-    public void startPingSweep(int delayMinutes) {
-        myTimer.scheduleAtFixedRate(myTask , 0L, delayMinutes * (60*1000)); // Runs every 5 minutes
+    public void startPingSweep(int pingDelayMinutes, int updateDelayMinutes) {
+        pingTimer.scheduleAtFixedRate(pingTask , 0L, pingDelayMinutes * (60*1000)); // Runs every X minutes
+        updateTimer.scheduleAtFixedRate(updateTask, 0L, updateDelayMinutes * (60*1000));
     }
 
     private static void pingMultiThread(boolean test) throws InterruptedException, IOException {
         String ipAddress = "192.168.0.";        //Network definition
         List<PingReturn> pingReturnsList = new ArrayList<>();    //Clearing list
         for (int i = 1; i < 255; i++) {         //Address pool
-            Runnable r = new PingService(pingReturnsList, ipAddress + i, test); //Defining new thread w/ assign ip
+            Runnable r = new PingService(pingReturnsList, ipAddress + i, test);    //Defining new thread w/ assign ip
+                                                                                            //Cant use "service" above
             new Thread(r).start();
         }
         if (!test) {
