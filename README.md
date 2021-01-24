@@ -7,5 +7,6 @@ localhost:8081/api/ping/"ip"
 localhost:8081/api/activity
 localhost:8081/api/activity/"ip"
 
-Activity gets date formated for future usage in app for easy visualisation.
-Per user days in week and hour.
+Activity get formated for future usage in app for easy visualisation per user days in week and hour.
+
+Only successful pings and nameList for aliases are stored in db. Statistics calculated on request.
