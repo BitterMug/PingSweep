@@ -26,6 +26,6 @@ public interface PingRepository extends JpaRepository<PingReturn, Long> {
     @Query(value = "SELECT * FROM ping_return WHERE address = :address", nativeQuery = true)
     List<PingReturn> getPingReturnByAddress(@Param("address") String address);
 
-    @Query(value = "SELECT DISTINCT address FROM ping_return WHERE time > (TIME(NOW()) - INTERVAL 15 MINUTE)", nativeQuery = true)
-    List<String> getActive();
+    @Query(value = "SELECT DISTINCT address FROM ping_return WHERE time > (TIME(NOW()) - INTERVAL :timeMinutes MINUTE)", nativeQuery = true)
+    List<String> getActive(@Param("timeMinutes") String timeMinutes);
 }

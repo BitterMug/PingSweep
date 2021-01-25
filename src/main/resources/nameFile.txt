@@ -15,10 +15,10 @@ Karla_NTB
 192.168.0.101
 T_Phone
 192.168.0.87
-Alice_Phone
+Alice_Phone?
 192.168.0.88
 Kuba_Phone?Galaxy
 192.168.0.157
 CZ014353AA
 192.168.0.90
-Alice_Phone2?MiNote10
+Alice_Phone2?

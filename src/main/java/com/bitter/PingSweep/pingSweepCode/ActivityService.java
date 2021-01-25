@@ -84,14 +84,13 @@ public class ActivityService {
         }
     }
 
-    public List<ActivityProfile> getActive(){
-        List<String> activeAddresses = pingRepository.getActive();
-        List<ActivityProfile> activeActivityProfiles = new ArrayList<>();
+    public List<String> getActive(int timeMinutes){
+        List<String> activeAddresses =  pingRepository.getActive(Integer.toString(timeMinutes));
+        List<String> activeNames = new ArrayList<>();
         for (String address : activeAddresses) {
-            ActivityProfile profile = getActivityByAddress(address);
-            activeActivityProfiles.add(profile);
+            activeNames.add(nameRepository.getNameByAddress(address));
         }
-        return activeActivityProfiles;
+        return activeNames;
     }
 
 }
