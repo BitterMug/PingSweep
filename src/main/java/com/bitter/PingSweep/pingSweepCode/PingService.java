@@ -44,7 +44,7 @@ public class PingService implements Runnable
     public void run() {
         try {
             InetAddress geek = InetAddress.getByName(ipAddress);
-            if (!test && geek.isReachable(2000)) { //If ping is successful
+            if (!test && geek.isReachable(3000)) { //If ping is successful
 
                 DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy/MM/dd");
                 DateTimeFormatter tf = DateTimeFormatter.ofPattern("HH:mm:ss");
@@ -52,7 +52,7 @@ public class PingService implements Runnable
 
                 PingReturn ping = new PingReturn(ipAddress, df.format(now), tf.format(now));
                 pingReturnList.add(ping);
-                //System.out.println(ping.getAddress() + " " + ping.getDateTime());
+                System.out.println(ping.getAddress() + " " + ping.getTime());
             }
         } catch (IOException e) {
             e.printStackTrace();

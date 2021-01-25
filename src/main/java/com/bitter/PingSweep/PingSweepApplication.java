@@ -21,7 +21,7 @@ public class PingSweepApplication {
 		SpringApplication.run(PingSweepApplication.class, args);
 
 		System.out.println("START");
-		pingSweep.startPingSweep(1, 1);
+		pingSweep.startPingSweep(10, 60);
 	}
 
 }

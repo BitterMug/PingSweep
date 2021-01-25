@@ -3,6 +3,7 @@ package com.bitter.PingSweep.pingSweepCode;
 import com.bitter.PingSweep.config.GetConfigValues;
 import com.bitter.PingSweep.model.ActivityProfile;
 import com.bitter.PingSweep.model.NameList;
+import com.bitter.PingSweep.model.PingReturn;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -54,7 +55,6 @@ public class ActivityService {
     public ActivityProfile getActivityByAddress(String address) {
         String name;
         name = nameRepository.getNameByAddress(address);
-        System.out.println("////////////////////////////NAME: " + name);
         ActivityProfile activityProfile = new ActivityProfile(name, address);
         ArrayList<ArrayList<String>> week = new ArrayList<>();
         for (int i = 1; i < 8; i++) {
@@ -82,6 +82,16 @@ public class ActivityService {
             nameRepository.save(nameList);
             System.out.println(nameList.getName());
         }
+    }
+
+    public List<ActivityProfile> getActive(){
+        List<String> activeAddresses = pingRepository.getActive();
+        List<ActivityProfile> activeActivityProfiles = new ArrayList<>();
+        for (String address : activeAddresses) {
+            ActivityProfile profile = getActivityByAddress(address);
+            activeActivityProfiles.add(profile);
+        }
+        return activeActivityProfiles;
     }
 
 }

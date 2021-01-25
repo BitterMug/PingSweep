@@ -37,4 +37,10 @@ public class ActivityController {
         return activityService.getActivityByAddress(address);
     }
 
+    @GetMapping(path = "active")
+    public List<ActivityProfile> getActive() {
+        System.out.println("Actual activity request");
+        return activityService.getActive();
+    }
+
 }

@@ -17,7 +17,11 @@ public class PingSweep {
             try {
                                             //Called two times. Second time are address tables filed.
                 pingMultiThread(true); //One ping scan is without any output. Going around loosing first ping.
-                TimeUnit.SECONDS.sleep(10);
+                TimeUnit.SECONDS.sleep(4);
+                pingMultiThread(true);
+                TimeUnit.SECONDS.sleep(4);
+                pingMultiThread(true);
+                TimeUnit.SECONDS.sleep(5);
                 pingMultiThread(false);
             } catch (InterruptedException | IOException e) {
                 e.printStackTrace();
@@ -59,7 +63,7 @@ public class PingSweep {
             new Thread(r).start();
         }
         if (!test) {
-            TimeUnit.SECONDS.sleep(3);          //Waiting for ping to finish
+            TimeUnit.SECONDS.sleep(4);          //Waiting for ping to finish
             System.out.println(pingReturnsList);        //Debug
             pingRepository.saveAll(pingReturnsList);    //Saving to database
         }
