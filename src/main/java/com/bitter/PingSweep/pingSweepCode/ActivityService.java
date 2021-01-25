@@ -93,4 +93,46 @@ public class ActivityService {
         return activeNames;
     }
 
+    public List<ActivityProfile> getActivityByWeek(int weekNum){
+        List<String> uniqueAddresses = pingRepository.findUniqueAddress();
+        List<ActivityProfile> activityProfileList = new ArrayList<>();
+        for (String address : uniqueAddresses) {
+            String name;
+            name = nameRepository.getNameByAddress(address);
+            ActivityProfile activityProfile = new ActivityProfile(name, address);
+            ArrayList<ArrayList<String>> week = new ArrayList<>(7);
+            for (int i = 1; i < 8; i++) {
+                ArrayList<String> day = new ArrayList<>(24);
+                for (int j = 0; j < 24; j++) {
+                    day.add(pingRepository.findCountByHourAndDayInWeek(i, j, address, weekNum));
+                }
+                week.add(day);
+            }
+            activityProfile.setWeekActivity(week);
+            activityProfileList.add(activityProfile);
+        }
+        return activityProfileList;
+    }
+
+    public List<ActivityProfile> getLastWeekActivity(){
+        List<String> uniqueAddresses = pingRepository.findUniqueAddress();
+        List<ActivityProfile> activityProfileList = new ArrayList<>();
+        for (String address : uniqueAddresses) {
+            String name;
+            name = nameRepository.getNameByAddress(address);
+            ActivityProfile activityProfile = new ActivityProfile(name, address);
+            ArrayList<ArrayList<String>> week = new ArrayList<>(7);
+            for (int i = 1; i < 8; i++) {
+                ArrayList<String> day = new ArrayList<>(24);
+                for (int j = 0; j < 24; j++) {
+                    day.add(pingRepository.findCountByHourAndDayLastWeek(i, j, address));
+                }
+                week.add(day);
+            }
+            activityProfile.setWeekActivity(week);
+            activityProfileList.add(activityProfile);
+        }
+        return activityProfileList;
+    }
+
 }

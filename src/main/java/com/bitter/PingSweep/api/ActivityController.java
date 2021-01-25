@@ -5,10 +5,7 @@ import com.bitter.PingSweep.model.PingReturn;
 import com.bitter.PingSweep.pingSweepCode.ActivityService;
 import com.bitter.PingSweep.pingSweepCode.PingService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -41,5 +38,17 @@ public class ActivityController {
     public List<String> getActive() {
         System.out.println("Actual activity request");
         return activityService.getActive(15);
+    }
+
+    @GetMapping(path = "week")
+    public List<ActivityProfile> getLastWeekActivity(@RequestParam int weeknum) {
+        System.out.println("Week activity request");
+        return activityService.getActivityByWeek(weeknum);
+    }
+
+    @GetMapping(path = "lastweek")
+    public List<ActivityProfile> getLastWeekActivity() {
+        System.out.println("Last week activity request");
+        return activityService.getLastWeekActivity();
     }
 }
