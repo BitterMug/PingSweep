@@ -3,15 +3,11 @@ package com.bitter.PingSweep.pingSweepCode;
 import com.bitter.PingSweep.config.GetConfigValues;
 import com.bitter.PingSweep.model.ActivityProfile;
 import com.bitter.PingSweep.model.NameList;
-import com.bitter.PingSweep.model.PingReturn;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class ActivityService {
@@ -108,6 +104,11 @@ public class ActivityService {
                 }
                 week.add(day);
             }
+            //DAYOFWEEK starts with sunday...
+            ArrayList<String> tempShifter;
+            tempShifter = week.get(0);
+            week.remove(0);
+            week.add(tempShifter);
             activityProfile.setWeekActivity(week);
             activityProfileList.add(activityProfile);
         }
@@ -122,7 +123,7 @@ public class ActivityService {
             name = nameRepository.getNameByAddress(address);
             ActivityProfile activityProfile = new ActivityProfile(name, address);
             ArrayList<ArrayList<String>> week = new ArrayList<>(7);
-            for (int i = 1; i < 8; i++) {
+            for (int i = 7; i > 0; i--) {
                 ArrayList<String> day = new ArrayList<>(24);
                 for (int j = 0; j < 24; j++) {
                     day.add(pingRepository.findCountByHourAndDayLastWeek(i, j, address));

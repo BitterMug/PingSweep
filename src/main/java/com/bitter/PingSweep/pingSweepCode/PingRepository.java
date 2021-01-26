@@ -29,9 +29,9 @@ public interface PingRepository extends JpaRepository<PingReturn, Long> {
     @Query(value = "SELECT DISTINCT address FROM ping_return WHERE time > (TIME(NOW()) - INTERVAL :timeMinutes MINUTE)", nativeQuery = true)
     List<String> getActive(@Param("timeMinutes") String timeMinutes);
 
-    @Query(value = "SELECT COUNT(*) FROM ping_return WHERE WEEK(date, 1) = WEEK(DATE(NOW()) - :weekNum, 1) AND time > DAYOFWEEK(date) = :dayNum AND HOUR(time) = :hourNum AND address = :address", nativeQuery = true)
+    @Query(value = "SELECT COUNT(*) FROM ping_return WHERE WEEK(date, 1) = (WEEK(DATE(NOW()), 1) - :weekNum) AND DAYOFWEEK(date) = :dayNum AND HOUR(time) = :hourNum AND address = :address", nativeQuery = true)
     String findCountByHourAndDayInWeek(@Param("dayNum") int dayNum, @Param("hourNum") int hourNum, @Param("address") String address, @Param("weekNum") int weekNum);
 
-    @Query(value = "SELECT COUNT(*) FROM ping_return WHERE DATEDIFF(NOW(), date) < 7 AND time > DAYOFWEEK(date) = :dayNum AND HOUR(time) = :hourNum AND address = :address", nativeQuery = true)
+    @Query(value = "SELECT COUNT(*) FROM ping_return WHERE DATEDIFF(NOW(), date) = :dayNum AND HOUR(time) = :hourNum AND address = :address", nativeQuery = true)
     String findCountByHourAndDayLastWeek(@Param("dayNum") int dayNum, @Param("hourNum") int hourNum, @Param("address") String address);
 }
