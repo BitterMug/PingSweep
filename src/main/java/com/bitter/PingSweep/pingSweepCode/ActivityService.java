@@ -42,6 +42,7 @@ public class ActivityService {
                 }
                 week.add(day);
             }
+            startWithMonday(week);
             activityProfile.setWeekActivity(week);
             activityProfileList.add(activityProfile);
         }
@@ -60,6 +61,7 @@ public class ActivityService {
             }
             week.add(day);
         }
+        startWithMonday(week);
         activityProfile.setWeekActivity(week);
         return activityProfile;
     }
@@ -104,11 +106,7 @@ public class ActivityService {
                 }
                 week.add(day);
             }
-            //DAYOFWEEK starts with sunday...
-            ArrayList<String> tempShifter;
-            tempShifter = week.get(0);
-            week.remove(0);
-            week.add(tempShifter);
+            startWithMonday(week);
             activityProfile.setWeekActivity(week);
             activityProfileList.add(activityProfile);
         }
@@ -123,7 +121,7 @@ public class ActivityService {
             name = nameRepository.getNameByAddress(address);
             ActivityProfile activityProfile = new ActivityProfile(name, address);
             ArrayList<ArrayList<String>> week = new ArrayList<>(7);
-            for (int i = 7; i > 0; i--) {
+            for (int i = 6; i >= 0; i--) {
                 ArrayList<String> day = new ArrayList<>(24);
                 for (int j = 0; j < 24; j++) {
                     day.add(pingRepository.findCountByHourAndDayLastWeek(i, j, address));
@@ -134,6 +132,13 @@ public class ActivityService {
             activityProfileList.add(activityProfile);
         }
         return activityProfileList;
+    }
+
+    private void startWithMonday(ArrayList<ArrayList<String>> weekList){ //DAYOFWEEK starts with sunday...
+        ArrayList<String> tempShifter;
+        tempShifter = weekList.get(0);
+        weekList.remove(0);
+        weekList.add(tempShifter);
     }
 
 }
