@@ -14,4 +14,4 @@ Activity get formated for future usage in app for easy visualisation per user da
 Only successful pings and nameList for aliases are stored in db. Statistics calculated on request.
 
 Not suteable for specific deployment without major changes in code. Config accesability is not priority for initial purpose of this SW.
-SW is provided "AS IS", without warranty of any kind expressed or ipmlied and should be handled as such.
+SW is provided "AS IS", without warranty of any kind expressed or ipmlied and should be handled as such. Developed for educational purposes and sould not be viwed as template for real life aplication.
