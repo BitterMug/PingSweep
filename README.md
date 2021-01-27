@@ -9,7 +9,7 @@ localhost:8081/api/activity/"ip"
 localhost:8081/api/activity/week?weeknum="{weeknum}" //Get activity of week before today
 localhost:8081/api/activity/lastweek
 
-Activity get formated for future usage in app for easy visualisation per user days in week and hour.
+Activity gets formated for future usage in app for easy visualisation per user days in week and hour.
 
 Only successful pings and nameList for aliases are stored in db. Statistics calculated on request.
 
