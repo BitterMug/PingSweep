@@ -30,7 +30,8 @@ public class PingService implements Runnable
         this.pingReturnList = pingReturnsList;
     }
 
-    public PingService(){ //for some reason needed, looks like Spring needs variant without any parameters
+    //for some reason needed, looks like Spring needs variant without any parameters
+    public PingService(){
     }
 
     public List<PingReturn> getPingReturnList() {
@@ -49,10 +50,10 @@ public class PingService implements Runnable
                 DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy/MM/dd");
                 DateTimeFormatter tf = DateTimeFormatter.ofPattern("HH:mm:ss");
                 LocalDateTime now = LocalDateTime.now();
-
                 PingReturn ping = new PingReturn(ipAddress, df.format(now), tf.format(now));
-                pingReturnList.add(ping);
-                System.out.println(ping.getAddress() + " " + ping.getTime());
+                    //Date and time probably don't need their own column (MYSQL can format it itself)
+                pingReturnList.add(ping);   //Add ping entry to db
+                System.out.println(ping.getAddress() + " " + ping.getTime()); //Debug
             }
         } catch (IOException e) {
             e.printStackTrace();

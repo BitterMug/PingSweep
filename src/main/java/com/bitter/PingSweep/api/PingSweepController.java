@@ -36,39 +36,3 @@ public class PingSweepController {
         return pingService.getPingReturnByAddress(address);
     }
 }
-
-
-////
-/*
-public class PersonController {
-
-    private final PersonService personService;
-
-    @Autowired
-    public PersonController(PersonService personService) {
-        this.personService = personService;
-    }
-
-    @GetMapping
-    public List<Person> getAllPeople() {
-        return  personService.getPeople();
-    }
-
-    @PostMapping
-    public void  registerNewPerson(@RequestBody Person person) {
-        personService.addNewPerson(person);
-    }
-
-    @DeleteMapping(path = "{personId}")
-    public void deletePersonById(@PathVariable("personId") Long id) {
-        personService.deletePersonById(id);
-    }
-
-    @PutMapping(path = "{personId}")    //localhost:8080/api/v1/person/1?name=passs
-    public void updatePerson(           //localhost:8080/api/v1/person/1?name=passs&email=saa@sda.sda
-                                        @PathVariable("personId") Long id,
-                                        @RequestParam(required = false) String name) {
-        personService.updatePerson(id, name);
-    }
-}
- */

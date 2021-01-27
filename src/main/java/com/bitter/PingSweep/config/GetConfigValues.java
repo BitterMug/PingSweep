@@ -14,7 +14,7 @@ public class GetConfigValues {
 
     public GetConfigValues() {}
 
-    public List<NameList> getNameValues() throws IOException {
+    public List<NameList> getNameValues() throws IOException { //Should be done with POST but Spring Sec is probably needed for deployment
 
         List<NameList> nameSet = new ArrayList();
         String line;

@@ -22,7 +22,7 @@ public class ActivityController {
     }
 
     @GetMapping
-    public List<ActivityProfile> getAllActivity() {
+    public List<ActivityProfile> getAllActivity() { //Should not be called on user request. Takes too long on slow HW
         System.out.println("All activity request");
         return activityService.getAllActivity();
     }
@@ -40,13 +40,14 @@ public class ActivityController {
         return activityService.getActive(15);
     }
 
-    @GetMapping(path = "week")
+    @GetMapping(path = "week")  //"/week?weeknum="X
+                                //Get activity in X week before todays (X=2, 27.1.2021 -> week 11-17.1.2021)
     public List<ActivityProfile> getLastWeekActivity(@RequestParam int weeknum) {
         System.out.println("Week activity request");
         return activityService.getActivityByWeek(weeknum);
     }
 
-    @GetMapping(path = "lastweek")
+    @GetMapping(path = "lastweek") //Get activity of last 7 days
     public List<ActivityProfile> getLastWeekActivity() {
         System.out.println("Last week activity request");
         return activityService.getLastWeekActivity();

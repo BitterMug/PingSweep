@@ -15,8 +15,8 @@ public class PingSweep {
         @Override
         public void run () {
             try {
-                                            //Called two times. Second time are address tables filed.
-                pingMultiThread(true); //One ping scan is without any output. Going around loosing first ping.
+                                            //Called few times.
+                pingMultiThread(true); //Only last scan is with output. Going around loosing first few ping.
                 TimeUnit.SECONDS.sleep(4);
                 pingMultiThread(true);
                 TimeUnit.SECONDS.sleep(4);
@@ -29,18 +29,21 @@ public class PingSweep {
         }
     };
 
+    /*
     static Timer updateTimer = new Timer();
     static TimerTask updateTask = new TimerTask() {
         @Override
         public void run() {
             ActivityService activityService = new ActivityService();
             try {
-                activityService.updateNameList();
+                activityService.updateNameList();   //Any periodic noncritical methods
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     };
+
+     */
 
     private static PingRepository pingRepository;
 
@@ -50,8 +53,8 @@ public class PingSweep {
     }
 
     public void startPingSweep(int pingDelayMinutes, int updateDelayMinutes) {
-        pingTimer.scheduleAtFixedRate(pingTask , 0L, pingDelayMinutes * (60*1000)); // Runs every X minutes
-        updateTimer.scheduleAtFixedRate(updateTask, 0L, updateDelayMinutes * (60*1000));
+        pingTimer.scheduleAtFixedRate(pingTask , 0L, pingDelayMinutes * (60*1000));         //Timers setup
+        //updateTimer.scheduleAtFixedRate(updateTask, 0L, updateDelayMinutes * (60*1000));    //Runs every X minutes
     }
 
     private static void pingMultiThread(boolean test) throws InterruptedException, IOException {
