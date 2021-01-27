@@ -16,7 +16,7 @@ public class GetConfigValues {
 
     public List<NameList> getNameValues() throws IOException { //Should be done with POST but Spring Sec is probably needed for deployment
 
-        List<NameList> nameSet = new ArrayList();
+        List<NameList> nameSet = new ArrayList<>();
         String line;
         try {
             InputStream in = getClass().getResourceAsStream("/nameFile.txt");
