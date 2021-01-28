@@ -5,7 +5,7 @@ Starts http server on 8081 for data access.
 MySQL setup:
 CREATE DATABASE webData;
 CREATE USER 'admin'@'localhost' IDENTIFIED BY 'Arsenrot';
-RANT ALL PRIVILEGES ON webData.* TO 'admin'@'localhost';
+GRANT ALL PRIVILEGES ON webData.* TO 'admin'@'localhost';
 FLUSH PRIVILEGES
 
 localhost:8081/api/ping
