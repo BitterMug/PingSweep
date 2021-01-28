@@ -9,14 +9,14 @@ Starts http server on 8081 for data access.
 > GRANT ALL PRIVILEGES ON webData.* TO 'admin'@'localhost';
 > FLUSH PRIVILEGES
 ```
-
+```
 localhost:8081/api/ping
 localhost:8081/api/ping/"ip"
 localhost:8081/api/activity
 localhost:8081/api/activity/"ip"
 localhost:8081/api/activity/week?weeknum="{weeknum}" //Get activity of week before today
 localhost:8081/api/activity/lastweek
-
+```
 Activity gets formated for future usage in app for easy visualisation per user days in week and hour.
 
 Only successful pings and nameList for aliases are stored in db. Statistics calculated on request.
